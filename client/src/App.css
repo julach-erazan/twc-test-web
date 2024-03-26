@@ -1,31 +1,9 @@
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-input[type=number] {
-  -moz-appearance: textfield;
-}
-
-input {
-  border: 2px solid #8d91a5;
-  outline: none;
-}
-
 input:focus {
   outline: none;
-  border: 2px solid #01579b;
 }
 
 textarea:focus {
   outline: none;
-  border: 2px solid #01579b;
-}
-
-input.input-error,
-select.input-error {
-  border-color: #fc8181;
 }
 
 .error {
