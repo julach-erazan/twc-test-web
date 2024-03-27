@@ -1,26 +1,24 @@
 import "./App.css";
-import Home from "../src/routes/home/Home";
-import Dashboard from "../src/routes/home/Dashboard";
+import Login from "./routes/pages/Login";
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Register from "./routes/pages/Register";
+import Welcome from "./routes/pages/Welcome";
+import Newcontacts from "./routes/pages/Newcontacts";
 
 function App() {
   const [id, setId] = useState(null);
 
-  useEffect(() => {
-    const searchParams = new URLSearchParams(window.location.search);
-    const storedId = searchParams.get("id") || sessionStorage.getItem("id") || sessionStorage.getItem("g_id");
-    if (storedId) {
-      setId(storedId);
-    }
-  }, []);
+  useEffect(() => {}, []);
 
   return (
-    <div className="App">
+    <div className="App w-screen h-screen">
       <BrowserRouter>
         <Routes>
-          {id && <Route path="/dashboard" element={<Dashboard />} />}
-          <Route path="/" element={<Home />} />
+          <Route exact path="/" element={<Welcome />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/contacts/new" element={<Newcontacts />} />
         </Routes>
       </BrowserRouter>
     </div>
