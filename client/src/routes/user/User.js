@@ -1,25 +1,30 @@
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
-import { RxUpdate } from "react-icons/rx";
-import { MdOutlineDelete } from "react-icons/md";
+import { MdEdit } from "react-icons/md";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
-const User = ({ onUpdateStudent, onDeleteStudent }) => {
+const User = ({ onUpdateStudent, onDeleteContact }) => {
   const [data, setData] = useState([]);
+  const [userIcon, setUserIcon] = useState();
+
+  const getData = () => {
+    try {
+      fetch("http://localhost:8001/viewcontact")
+        .then((res) => res.json())
+        .then((data) => {
+          setData(data.data)
+          sessionStorage.setItem("id", data.data._id)
+      });
+
+    } catch (error) {
+      alert(error.response?.data.message);
+    }
+  };
 
   useEffect(() => {
     getData();
   }, []);
-
-  const getData = () => {
-    // try {
-    //   fetch("http://localhost:8001/viewstudent")
-    //     .then((res) => res.json())
-    //     .then((data) => setData(data.data));
-    // } catch (error) {
-    //   alert(error.response?.data.message);
-    // }
-  };
 
   return (
     <div className="w-full h-full p-[10px]">
@@ -27,59 +32,55 @@ const User = ({ onUpdateStudent, onDeleteStudent }) => {
         <thead>
           <tr className="w-full h-[50px]">
             <th>
-              <h1 className="font-semibold">Image</h1>
             </th>
             <th>
-              <h1 className="font-semibold">full name</h1>
+              <h1 className="font-bold">full name</h1>
             </th>
             <th>
-              <h1 className="font-semibold">gender</h1>
+              <h1 className="font-bold">gender</h1>
             </th>
             <th>
-              <h1 className="font-semibold">e-mail</h1>
+              <h1 className="font-bold">e-mail</h1>
             </th>
             <th>
-              <h1 className="font-semibold">phone number</h1>
+              <h1 className="font-bold">phone number</h1>
             </th>
             <th>
-              <h1 className="font-semibold">Actions</h1>
             </th>
           </tr>
         </thead>
 
         <tbody>
-          {/* {data.map((d) => (
-            <tr key={d._id}>
-              <td>{d.studentId}</td>
-              <td>{d.studentName}</td>
-              <td className="flex justify-center">
-                <img
-                  src={"http://localhost:8001/Images/" + d.imagePath}
-                  alt="Pic"
-                  className="w-[40px] h-[40px]"
-                />
+          {data.map((d) => (
+            <tr key={d._id} className="font-semibold">
+              <td>
+                <div className="w-full flex justify-center">
+                <img src="/Images/1000003393.jpg" alt="user-icon" className="w-[40px] h-[40px] rounded-[50%]"/>
+                </div>
               </td>
-              <td>{d.age}</td>
-              <td>{d.status}</td>
-              <td className="flex justify-evenly items-center">
+              <td>{d.userName}</td>
+              <td>{d.gender}</td>
+              <td>{d.email}</td>
+              <td>{d.phoneNumber}</td>
+              <td className="flex">
                 <button
-                  className="w-[45px] h-[45px] rounded-[5px] flex justify-center items-center text-[green]"
+                  className="w-[50%] text-[20px] rounded-[5px] flex justify-center items-center"
                   onClick={() =>
                     onUpdateStudent(d._id, d.studentId, d.studentName, d.age)
                   }
                 >
-                  <RxUpdate />
+                  <MdEdit />
                 </button>
 
                 <button
-                  className="w-[45px] h-[45px] rounded-[5px] flex justify-center items-center text-[red]"
-                  onClick={() => onDeleteStudent(d._id)}
+                  className="w-[50%] text-[20px] rounded-[5px] flex justify-center items-center"
+                  onClick={() => onDeleteContact(d._id)}
                 >
-                  <MdOutlineDelete />
+                  <RiDeleteBin6Line />
                 </button>
               </td>
             </tr>
-          ))} */}
+          ))}
         </tbody>
       </table>
     </div>

@@ -1,14 +1,15 @@
 import { React, useState, useRef } from "react";
 import { useFormik } from "formik";
 import { userAddSchema } from "../../schemas/addUserSchema";
-import { handleAddStudent } from "../../controller/handleAddStudent";
+import { handleAddContact } from "../../controller/handleAddContact";
 
 const AddUser = () => {
   const [gender, setGender] = useState();
 
   const onSubmit = (value, actions) => {
     actions.resetForm(); //Reset form data
-    handleAddStudent(value.studentName);
+    document.getElementById("gender").checked = false;
+    handleAddContact(value.userName, value.email, value.phoneNumber, gender );
   };
 
   const handleGender = (e) => {
@@ -62,7 +63,7 @@ const AddUser = () => {
               <input
                 id="phoneNumber"
                 className="w-[90%] h-[40px] rounded-[20px] p-[18px] my-[10px]"
-                type="email"
+                type="text"
                 placeholder="phone number"
                 value={values.phoneNumber}
                 onChange={handleChange}

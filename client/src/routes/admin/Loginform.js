@@ -2,7 +2,6 @@ import React from "react";
 import { useFormik } from "formik";
 import { loginSchema } from "../../schemas/loginSchema";
 import { handleLogin } from "../../controller/handleLogin";
-import { handleGoogleLogin } from "../../controller/handleGooogleLogin";
 
 const Loginform = () => {
   const onSubmit = (value, actions) => {

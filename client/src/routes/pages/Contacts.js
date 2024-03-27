@@ -1,8 +1,21 @@
 import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
 import { RiLogoutCircleLine } from "react-icons/ri";
+import { handleDeleteContact } from "../../controller/handleDeleteContact";
 import User from "../user/User";
 
 const Contacts = () => {
+
+  const [id, setId] = useState();
+
+  useEffect(() => {
+    setId(sessionStorage.getItem("id"));
+  }, [])
+
+  const deleteContact = (id) => {
+      handleDeleteContact(id);
+  }
   return (
     <div
       className="
@@ -42,7 +55,7 @@ const Contacts = () => {
               </a>
             </div>
             <div className="w-full h-[80%] bg-[#fff] rounded-[20px] overflow-y-scroll mt-[20px]">
-              <User />
+              <User onDeleteContact={deleteContact}/>
             </div>
           </div>
           <div className="w-full h-[10%] flex justify-end items-center">

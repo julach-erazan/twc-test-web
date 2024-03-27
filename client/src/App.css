@@ -30,7 +30,3 @@ table {
 table td {
   height: 50px;
 }
-
-table tr:nth-child(even) {
-  background-color: #f5f5f5;
-}
