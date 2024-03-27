@@ -36,10 +36,7 @@ const Loginform = () => {
         >
           <input
             id="email"
-            className={`
-                  w-full h-[40px] rounded-[20px] p-[18px] my-[10px]
-                  ${errors.email && touched.email ? "input-error" : ""}
-                `}
+            className="w-full h-[40px] rounded-[20px] p-[18px] my-[10px]"
             type="email"
             placeholder="e-mail"
             value={values.email}
@@ -52,10 +49,7 @@ const Loginform = () => {
 
           <input
             id="password"
-            className={`
-                  w-full h-[40px] rounded-[20px] p-[18px] my-[10px]
-                  ${errors.password && touched.password ? "input-error" : ""}
-                `}
+            className="w-full h-[40px] rounded-[20px] p-[18px] my-[10px]"
             type="password"
             placeholder="password"
             value={values.password}

@@ -35,7 +35,7 @@ const Welcome = () => {
             </h2>
 
             <a
-              href="/contacts/new"
+              href="/contacts"
               className="
                w-[200px] h-[40px] font-semibold rounded-[20px] border-[2px] border-[#fff] hover:text-[#083F46] hover:bg-[#fff] my-[50px]
               flex justify-center items-center

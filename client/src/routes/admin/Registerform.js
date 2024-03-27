@@ -32,10 +32,7 @@ const Registerform = () => {
         >
           <input
             id="email"
-            className={`
-                  w-full h-[40px] rounded-[20px] p-[18px] my-[10px]
-                  ${errors.email && touched.email ? "input-error" : ""}
-                `}
+            className="w-full h-[40px] rounded-[20px] p-[18px] my-[10px]"
             type="email"
             placeholder="e-mail"
             value={values.email}
@@ -48,10 +45,7 @@ const Registerform = () => {
 
           <input
             id="password"
-            className={`
-                  w-full h-[40px] rounded-[20px] p-[18px] my-[10px]
-                  ${errors.password && touched.password ? "input-error" : ""}
-                `}
+            className="w-full h-[40px] rounded-[20px] p-[18px] my-[10px]"
             type="password"
             placeholder="create password"
             value={values.password}
@@ -64,14 +58,7 @@ const Registerform = () => {
 
           <input
             id="confirmPassword"
-            className={`
-                w-full h-[40px] rounded-[20px] p-[18px] my-[10px]
-                ${
-                  errors.confirmPassword && touched.confirmPassword
-                    ? "input-error"
-                    : ""
-                }
-              `}
+            className="w-full h-[40px] rounded-[20px] p-[18px] my-[10px]"
             type="password"
             placeholder="confirm password"
             value={values.confirmPassword}

@@ -1,8 +1,8 @@
 import React from "react";
 import { RiLogoutCircleLine } from "react-icons/ri";
-import AddUser from "../user/AddUser";
+import User from "../user/User";
 
-const Newcontacts = () => {
+const Contacts = () => {
   return (
     <div
       className="
@@ -29,7 +29,21 @@ const Newcontacts = () => {
             </h1>
           </div>
           <div className="w-full h-[70%] flex flex-col justify-center items-left">
-            <AddUser />
+            <div className="w-full h-[20%] flex justify-between items-center">
+              <h1 className="text-[50px] font-bold">Contacts</h1>
+              <a
+                href="/contacts/new"
+                className="
+               w-[150px] h-[40px] font-semibold rounded-[20px] border-[2px] border-[#fff] hover:text-[#083F46] hover:bg-[#fff]
+              flex justify-center items-center
+            "
+              >
+                <h1>add new contact</h1>
+              </a>
+            </div>
+            <div className="w-full h-[80%] bg-[#fff] rounded-[20px] overflow-y-scroll mt-[20px]">
+              <User />
+            </div>
           </div>
           <div className="w-full h-[10%] flex justify-end items-center">
             <button>
@@ -50,4 +64,4 @@ const Newcontacts = () => {
   );
 };
 
-export default Newcontacts;
+export default Contacts;
