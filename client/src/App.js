@@ -8,27 +8,30 @@ import Newcontacts from "./routes/pages/Newcontacts";
 import Contacts from "./routes/pages/Contacts";
 
 function App() {
-  const [id, setId] = useState(1);
+  const [id, setId] = useState(null);
 
-  // useEffect(() => {
-  //   setId();
-  // }, []);
+  useEffect(() => {
+    setId(sessionStorage.getItem("id"));
+  }, []);
 
-  useEffect(() => {}, []);
+  const handleLogOut = () => {
+    sessionStorage.removeItem("id");
+    window.location = "/login";
+  };
 
   return (
     <div className="App w-screen min-w-[1300px] h-screen">
       <BrowserRouter>
         <Routes>
           {id ? (
-            <Route path="/" element={<Welcome />} />
+            <Route path="/" element={<Welcome onLogOut={handleLogOut} />} />
           ) : (
             <Route exact path="/" element={<Login />} />
           )}
           <Route exact path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/contacts" element={<Contacts />} />
-          <Route path="/contacts/new" element={<Newcontacts />} />
+          {id && <Route path="/contacts" element={<Contacts />} />}
+          {id && <Route path="/contacts/new" element={<Newcontacts />} />}
         </Routes>
       </BrowserRouter>
     </div>

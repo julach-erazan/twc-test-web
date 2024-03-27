@@ -1,7 +1,7 @@
 import React from "react";
 import { RiLogoutCircleLine } from "react-icons/ri";
 
-const Welcome = () => {
+const Welcome = ({ onLogOut }) => {
   return (
     <div
       className="
@@ -45,16 +45,14 @@ const Welcome = () => {
             </a>
           </div>
           <div className="w-full h-[10%] flex justify-end items-center">
-            <button>
-              <a
-                href="/login"
-                className="w-[100px] flex justify-between items-center"
-              >
-                <RiLogoutCircleLine className="text-[30px] font-semibold" />
-                <u>
-                  <h1 className="text-[20px] font-semibold">logout</h1>
-                </u>
-              </a>
+            <button
+              onClick={() => onLogOut()}
+              className="w-[100px] flex justify-between items-center"
+            >
+              <RiLogoutCircleLine className="text-[30px] font-semibold" />
+              <u>
+                <h1 className="text-[20px] font-semibold">logout</h1>
+              </u>
             </button>
           </div>
         </div>
