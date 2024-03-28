@@ -8,10 +8,10 @@ import Newcontacts from "./routes/pages/Newcontacts";
 import Contacts from "./routes/pages/Contacts";
 
 function App() {
-  const [id, setId] = useState(null);
+  const [id, setId] = useState(null);//login id
 
   useEffect(() => {
-    setId(sessionStorage.getItem("id"));
+    setId(sessionStorage.getItem("id"));//Set id
   }, []);
 
   const handleLogOut = () => {

@@ -3,17 +3,17 @@ import { useFormik } from "formik";
 import { userAddSchema } from "../../schemas/addUserSchema";
 
 const AddUser = ({ onHandleAddContact }) => {
-  const [gender, setGender] = useState();
+  const [gender, setGender] = useState();//Set Gender
 
   const onSubmit = (value, actions) => {
-    actions.resetForm(); //Reset form data
-    document.getElementById("gender").checked = false;
-    onHandleAddContact(value.userName, value.email, value.phoneNumber, gender);
+    actions.resetForm(); //Reset form data after submitting
+    document.getElementById("gender").checked = false; //Reset ratio button after submitting
+    onHandleAddContact(value.userName, value.email, value.phoneNumber, gender); //Send data to add user api function
   };
 
   const handleGender = (e) => {
-    setGender(e.target.value);
-    setFieldValue("gender", e.target.value);
+    setGender(e.target.value); //Set gender value
+    setFieldValue("gender", e.target.value); //Call gender validation
   };
 
   const {

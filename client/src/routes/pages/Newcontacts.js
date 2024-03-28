@@ -8,6 +8,7 @@ const Newcontacts = () => {
   const [viewAlert, setViewAlert] = useState(false);
   const [message, setMessage] = useState();
 
+  //Add contact
   const handleAddContact = async (userName, email, phoneNumber, gender) => {
     try {
       const response = await axios //Send data to Backend

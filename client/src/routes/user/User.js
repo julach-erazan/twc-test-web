@@ -5,8 +5,8 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { GrUpdate } from "react-icons/gr";
 
 const User = ({ onUpdateContact, onDeleteContact }) => {
-  const [data, setData] = useState([]);
-  const [editId, setEditId] = useState(null);
+  const [data, setData] = useState([]);//Set Get Contacts data
+  const [editId, setEditId] = useState(null); //Set edit id
 
   // Call getData function
   useEffect(() => {

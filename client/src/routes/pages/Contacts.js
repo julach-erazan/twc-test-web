@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useContext } from "react";
-import { useEffect } from "react";
 import { useState } from "react";
 import { RiLogoutCircleLine } from "react-icons/ri";
 import User from "../user/User";
@@ -8,22 +7,18 @@ import SuccessAlert from "../../components/SuccessAlert";
 import WarnningAlert from "../../components/WarnningAlert";
 
 const Contacts = () => {
-  const [id, setId] = useState();
-  const [userId, setUserId] = useState();
+  const [deleteContactId, setDeleteContactId] = useState(); //Id of Delete Contact
+  const [callGetData, setCallGetData] = useState(() => {}); //Store getData function globle
 
-  const [viewAlert, setViewAlert] = useState(false);
-  const [viewWarnnning, setViewWarnning] = useState(false);
+  const [viewAlert, setViewAlert] = useState(false); //View Alert
+  const [viewWarnnning, setViewWarnning] = useState(false); //View Warnning
 
-  const [message, setMessage] = useState();
-  const [contactName, setContactName] = useState();
-
-  useEffect(() => {
-    setId(sessionStorage.getItem("id")); //Get Id from session storage and store it
-  }, []);
+  const [message, setMessage] = useState();//Store backend Responce message
+  const [contactName, setContactName] = useState();//Store delete user name
 
   //Delete Contacts
   const handleDeleteContact = async (id) => {
-    console.log(id);
+
     try {
       const response = await axios //Send data to Backend
         .post("http://localhost:8001/deletecontact", {
@@ -33,7 +28,7 @@ const Contacts = () => {
       if (response.status === 201) {
         setMessage(response.data.message);
         setViewAlert(true);
-        window.location.reload();
+        callGetData();
       }
     } catch (error) {
       setMessage(error.message);
@@ -41,15 +36,18 @@ const Contacts = () => {
     }
   };
 
+  //Get data from User component
   const deleteContact = (id, userName, getData) => {
-    setUserId(id);
+    setDeleteContactId(id);
     setContactName(userName);
     setViewWarnning(true);
+    setCallGetData(() => getData)
   };
 
-  const handleDelete = (id) => {
-    handleDeleteContact(id);
-    setViewWarnning(false);
+  //If user select Yes button, send Get userId and it send to Delete api calling function
+  const handleUserId = (id) => {
+    handleDeleteContact(id); //Delete api function
+    setViewWarnning(false); //Close Warnning alert
   };
 
   //Update Contacts
@@ -108,9 +106,9 @@ const Contacts = () => {
 
       {viewWarnnning ? (
         <WarnningAlert
-          userId={userId}
+        deleteContactId={deleteContactId}
           contactName={contactName}
-          onDelete={handleDelete}
+          onYes={handleUserId}
           onCloseAlert={closeAlert}
         />
       ) : (
@@ -142,7 +140,7 @@ const Contacts = () => {
                 <h1>add new contact</h1>
               </a>
             </div>
-            <div className="w-full h-[80%] bg-[#fff] rounded-[20px] overflow-y-scroll mt-[20px]">
+            <div className="w-full h-[80%] bg-[#fff] rounded-[20px]  mt-[20px]">
               <User
                 onUpdateContact={handleUpdateContact}
                 onDeleteContact={deleteContact}
