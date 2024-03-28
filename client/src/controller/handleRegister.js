@@ -12,7 +12,7 @@ const handleRegister = async (email, password) => {
       window.location = "/login";
     }
   } catch (error) {
-    alert(error.response?.data.message);
+    // alert(error.response?.data.message);
   }
 };
 

@@ -1,23 +1,30 @@
 import axios from "axios";
 
-const handleAddContact = async (userName, email, phoneNumber, gender) => {
+const handleUpdateContact = async (
+  id,
+  userName,
+  gender,
+  email,
+  phoneNumber,
+  getData
+) => {
   try {
-    console.log(gender);
-
     const response = await axios //Send data to Backend
-      .post("http://localhost:8001/addcontact", {
+      .post("http://localhost:8001/updatecontact", {
+        id,
         userName,
+        gender,
         email,
         phoneNumber,
-        gender,
       });
 
     if (response.status === 201) {
       // alert(response.data.message);
+      getData();
     }
   } catch (error) {
     alert(error.response?.data.message);
   }
 };
 
-export { handleAddContact };
+export { handleUpdateContact };

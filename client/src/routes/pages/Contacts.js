@@ -3,19 +3,27 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { RiLogoutCircleLine } from "react-icons/ri";
 import { handleDeleteContact } from "../../controller/handleDeleteContact";
+import { handleUpdateContact } from "../../controller/handleUpdateContact";
 import User from "../user/User";
+import SuccessAlert from "../../components/SuccessAlert";
 
 const Contacts = () => {
-
   const [id, setId] = useState();
+  const [alert, setAlert] = useState(false);
 
   useEffect(() => {
-    setId(sessionStorage.getItem("id"));
-  }, [])
+    setId(sessionStorage.getItem("id")); //Get Id from session storage and store it
+  }, []);
 
-  const deleteContact = (id) => {
-      handleDeleteContact(id);
-  }
+  //Delete Contacts
+  const deleteContact = (id, getData) => {
+    handleDeleteContact(id, getData);
+  };
+
+  //Update Contacts
+  const updateContact = (id, userName, gender, email, phoneNumber, getData) => {
+    handleUpdateContact(id, userName, gender, email, phoneNumber, getData);
+  };
   return (
     <div
       className="
@@ -28,6 +36,7 @@ const Contacts = () => {
         after:top-0
     "
     >
+      {alert ? <SuccessAlert /> : ""}
       <div
         className="
         w-[1763px] h-[1000px] bg-[#083F46] rounded-[50%] rotate-[25deg] fixed z-20 top-[-180px] left-[-200px]
@@ -55,7 +64,10 @@ const Contacts = () => {
               </a>
             </div>
             <div className="w-full h-[80%] bg-[#fff] rounded-[20px] overflow-y-scroll mt-[20px]">
-              <User onDeleteContact={deleteContact}/>
+              <User
+                onUpdateContact={updateContact}
+                onDeleteContact={deleteContact}
+              />
             </div>
           </div>
           <div className="w-full h-[10%] flex justify-end items-center">
