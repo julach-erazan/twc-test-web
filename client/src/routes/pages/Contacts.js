@@ -140,7 +140,7 @@ const Contacts = () => {
                 <h1>add new contact</h1>
               </a>
             </div>
-            <div className="w-full h-[80%] bg-[#fff] rounded-[20px]  mt-[20px]">
+            <div className="w-full h-[80%] bg-[#fff] rounded-[20px] overflow-y-scroll mt-[20px]">
               <User
                 onUpdateContact={handleUpdateContact}
                 onDeleteContact={deleteContact}
