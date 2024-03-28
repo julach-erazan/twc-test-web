@@ -22,7 +22,7 @@ const User = ({ onUpdateContact, onDeleteContact }) => {
           setData(data.data);
         });
     } catch (error) {
-      alert(error.response?.data.message);
+      return;
     }
   };
 
@@ -50,8 +50,8 @@ const User = ({ onUpdateContact, onDeleteContact }) => {
   };
 
   //Delete Contact
-  const handleDelete = (id) => {
-    onDeleteContact(id, getData);
+  const handleDelete = (id, userName) => {
+    onDeleteContact(id, userName, getData);
   };
 
   return (
@@ -94,24 +94,24 @@ const User = ({ onUpdateContact, onDeleteContact }) => {
                     id="userName"
                     type="text"
                     defaultValue={d.userName}
-                    className="w-[70%] bg-[#d9dfdf]"
+                    className="w-[90%] bg-[#d9dfdf] px-[5px]"
                   />
                 ) : (
                   <span>{d.userName}</span>
                 )}
               </td>
-              <td className="px-3 py-2 whitespace-wrap flex justify-center items-center">
+              <td className="px-3 py-2 whitespace-wrap">
                 {editId === d._id ? (
-                  <div className="w-[50%] bg-[#d9dfdf] flex justify-center items-center">
+                  <div className="w-[100%] flex justify-center items-center">
                     <input
                       id="gender"
                       type="text"
                       defaultValue={d.gender}
-                      className="w-[70%] bg-[#d9dfdf]"
+                      className="w-[40%] bg-[#d9dfdf] px-[5px]"
                       disabled
                     />
                     <button
-                      className="w-[30%] flex justify-center items-center"
+                      className="w-[20%] h-[24px] bg-[#d9dfdf] flex justify-center items-center"
                       onClick={() =>
                         handleGender(document.getElementById("gender").value)
                       }
@@ -129,7 +129,7 @@ const User = ({ onUpdateContact, onDeleteContact }) => {
                     id="email"
                     type="email"
                     defaultValue={d.email}
-                    className="w-[70%] bg-[#d9dfdf]"
+                    className="w-[90%] bg-[#d9dfdf] px-[5px]"
                   />
                 ) : (
                   <span>{d.email}</span>
@@ -141,13 +141,13 @@ const User = ({ onUpdateContact, onDeleteContact }) => {
                     id="phoneNumber"
                     type="text"
                     defaultValue={d.phoneNumber}
-                    className="w-[70%] bg-[#d9dfdf]"
+                    className="w-[90%] bg-[#d9dfdf] px-[5px]"
                   />
                 ) : (
                   <span>{d.phoneNumber}</span>
                 )}
               </td>
-              <td className="px-3 py-2 whitespace-wrap flex justify-center items-center">
+              <td className="px-3 py-2 whitespace-wrap">
                 {editId === d._id ? (
                   <button
                     className="w-[60px] h-[30px] text-[#fff] rounded-[15px] bg-[#083F46]"
@@ -168,7 +168,7 @@ const User = ({ onUpdateContact, onDeleteContact }) => {
 
                     <button
                       className="w-[50%] text-[20px] rounded-[5px] flex justify-center items-center"
-                      onClick={() => handleDelete(d._id)}
+                      onClick={() => handleDelete(d._id, d.userName)}
                     >
                       <RiDeleteBin6Line />
                     </button>

@@ -1,29 +1,93 @@
-import React from "react";
+import axios from "axios";
+import React, { useContext } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { RiLogoutCircleLine } from "react-icons/ri";
-import { handleDeleteContact } from "../../controller/handleDeleteContact";
-import { handleUpdateContact } from "../../controller/handleUpdateContact";
 import User from "../user/User";
 import SuccessAlert from "../../components/SuccessAlert";
+import WarnningAlert from "../../components/WarnningAlert";
 
 const Contacts = () => {
   const [id, setId] = useState();
-  const [alert, setAlert] = useState(false);
+  const [userId, setUserId] = useState();
+
+  const [viewAlert, setViewAlert] = useState(false);
+  const [viewWarnnning, setViewWarnning] = useState(false);
+
+  const [message, setMessage] = useState();
+  const [contactName, setContactName] = useState();
 
   useEffect(() => {
     setId(sessionStorage.getItem("id")); //Get Id from session storage and store it
   }, []);
 
   //Delete Contacts
-  const deleteContact = (id, getData) => {
-    handleDeleteContact(id, getData);
+  const handleDeleteContact = async (id) => {
+    console.log(id);
+    try {
+      const response = await axios //Send data to Backend
+        .post("http://localhost:8001/deletecontact", {
+          id,
+        });
+
+      if (response.status === 201) {
+        setMessage(response.data.message);
+        setViewAlert(true);
+        window.location.reload();
+      }
+    } catch (error) {
+      setMessage(error.message);
+      setViewAlert(true);
+    }
+  };
+
+  const deleteContact = (id, userName, getData) => {
+    setUserId(id);
+    setContactName(userName);
+    setViewWarnning(true);
+  };
+
+  const handleDelete = (id) => {
+    handleDeleteContact(id);
+    setViewWarnning(false);
   };
 
   //Update Contacts
-  const updateContact = (id, userName, gender, email, phoneNumber, getData) => {
-    handleUpdateContact(id, userName, gender, email, phoneNumber, getData);
+  const handleUpdateContact = async (
+    id,
+    userName,
+    gender,
+    email,
+    phoneNumber,
+    getData
+  ) => {
+    try {
+      const response = await axios //Send data to Backend
+        .post("http://localhost:8001/updatecontact", {
+          id,
+          userName,
+          gender,
+          email,
+          phoneNumber,
+        });
+
+      if (response.status === 201) {
+        setMessage(response.data.message);
+        setViewAlert(true);
+        getData();
+      }
+    } catch (error) {
+      setMessage(error.data.message);
+      setViewAlert(true);
+    }
   };
+
+  //Close Alert
+  const closeAlert = () => {
+    setViewAlert(false);
+    setViewWarnning(false);
+  };
+
   return (
     <div
       className="
@@ -36,7 +100,22 @@ const Contacts = () => {
         after:top-0
     "
     >
-      {alert ? <SuccessAlert /> : ""}
+      {viewAlert ? (
+        <SuccessAlert message={message} onCloseAlert={closeAlert} />
+      ) : (
+        ""
+      )}
+
+      {viewWarnnning ? (
+        <WarnningAlert
+          userId={userId}
+          contactName={contactName}
+          onDelete={handleDelete}
+          onCloseAlert={closeAlert}
+        />
+      ) : (
+        ""
+      )}
       <div
         className="
         w-[1763px] h-[1000px] bg-[#083F46] rounded-[50%] rotate-[25deg] fixed z-20 top-[-180px] left-[-200px]
@@ -65,7 +144,7 @@ const Contacts = () => {
             </div>
             <div className="w-full h-[80%] bg-[#fff] rounded-[20px] overflow-y-scroll mt-[20px]">
               <User
-                onUpdateContact={updateContact}
+                onUpdateContact={handleUpdateContact}
                 onDeleteContact={deleteContact}
               />
             </div>

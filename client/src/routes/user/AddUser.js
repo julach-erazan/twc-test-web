@@ -1,15 +1,14 @@
 import { React, useState, useRef } from "react";
 import { useFormik } from "formik";
 import { userAddSchema } from "../../schemas/addUserSchema";
-import { handleAddContact } from "../../controller/handleAddContact";
 
-const AddUser = () => {
+const AddUser = ({ onHandleAddContact }) => {
   const [gender, setGender] = useState();
 
   const onSubmit = (value, actions) => {
     actions.resetForm(); //Reset form data
     document.getElementById("gender").checked = false;
-    handleAddContact(value.userName, value.email, value.phoneNumber, gender );
+    onHandleAddContact(value.userName, value.email, value.phoneNumber, gender);
   };
 
   const handleGender = (e) => {
